@@ -1,38 +1,26 @@
-import { StatusBar } from "expo-status-bar";
-import React, { useState, useEffect, useRef } from "react";
-import { StyleSheet, Text, View, Image, Animated } from "react-native";
+import React from "react";
+import { StyleSheet, View, Image, TouchableOpacity, Text } from "react-native";
+import FadeInView from "./components/screen/LandingPage";
 
-const FadeInView = (props) => {
-  const fadeAnim = useRef(new Animated.Value(0)).current;
-
-  useEffect(() => {
-    Animated.timing(fadeAnim, {
-      toValue: 1,
-      duration: 5000,
-      useNativeDriver: true,
-    }).start();
-  }, [fadeAnim]);
-
-  return (
-    <Animated.View // Special animatable View
-      style={{
-        ...props.style,
-        opacity: fadeAnim, // Bind opacity to animated value
-      }}
-    >
-      {props.children}
-    </Animated.View>
-  );
-};
 export default function App() {
+  const onPressHandler = () => {
+    console.log("Button Press");
+  };
   return (
     <View style={styles.container}>
-      <FadeInView>
-        <Image
-          source={require("./assets/logo.png")}
-          style={{ width: 200, height: 200 }}
-        />
-      </FadeInView>
+      <View style={styles.logoContainer}>
+        <FadeInView>
+          <Image
+            source={require("./assets/logo.png")}
+            style={{ width: 200, height: 200 }}
+          />
+        </FadeInView>
+      </View>
+      <View style={styles.buttonContainer}>
+        <TouchableOpacity style={styles.buttonStyle} onPress={onPressHandler}>
+          <Text style={styles.buttonText}>Enter</Text>
+        </TouchableOpacity>
+      </View>
     </View>
   );
 }
@@ -42,5 +30,26 @@ const styles = StyleSheet.create({
     flex: 1,
     alignItems: "center",
     justifyContent: "center",
+  },
+  logoContainer: {
+    flex: 3,
+    alignItems: "center",
+    justifyContent: "center",
+  },
+  buttonContainer: {
+    flex: 1,
+    alignItems: "center",
+    justifyContent: "center",
+  },
+  buttonStyle: {
+    width: 200,
+    height: 40,
+    backgroundColor: "#000",
+    borderRadius: 50,
+    justifyContent: "center",
+  },
+  buttonText: {
+    color: "white",
+    textAlign: "center",
   },
 });
